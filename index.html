@@ -1,0 +1,412 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>The Winter Day | International Technical Colleges</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js"></script>
+<style>
+:root{--n:#0B2447;--n2:#07172F;--w:#1D4F91;--i:#CFE6F7;--glass:rgba(255,255,255,.06);--line:rgba(207,230,247,.18);--err:#ff9a94;--ok:#8fe3b0}
+*{box-sizing:border-box}[hidden]{display:none!important}html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;min-height:100vh;font-family:Inter,"Segoe UI",Arial,sans-serif;font-weight:300;color:#eaf3fb;
+ background:radial-gradient(1200px 700px at 80% -10%,#1D4F9166,transparent 60%),radial-gradient(900px 600px at -10% 40%,#1D4F9140,transparent 60%),linear-gradient(180deg,var(--n) 0,var(--n2) 100%);background-attachment:fixed}
+#snow{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:0}
+.wrap{max-width:1080px;margin:auto;padding:0 22px;position:relative;z-index:1}
+.eyebrow{letter-spacing:.38em;text-transform:uppercase;font-size:12px;color:var(--i);font-weight:500}
+h1,h2,h3,.serif{font-family:"Cormorant Garamond",Georgia,serif}
+.top{position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;max-width:1080px;margin:auto;padding:18px 22px}
+.logo{height:52px;background:#fff;border-radius:14px;padding:6px 12px;box-shadow:0 8px 30px #0006}
+.steps{display:flex;gap:8px;font-size:11px;letter-spacing:.14em;text-transform:uppercase}
+.steps span{padding:8px 14px;border-radius:99px;border:1px solid var(--line);color:#8fb0cf;transition:.5s;white-space:nowrap}
+.steps span.on{background:linear-gradient(135deg,var(--w),#2d6bc0);color:#fff;border-color:transparent;box-shadow:0 6px 20px #1D4F9188}
+#who{font-size:14px;color:var(--i);display:flex;align-items:center;gap:10px}
+#who i{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--w),#2d6bc0);display:grid;place-items:center;font-style:normal;font-weight:600;color:#fff}
+#who a{color:#fff;font-size:12px;opacity:.8}
+.page{animation:rise .8s cubic-bezier(.2,.7,.2,1);padding:10px 0 70px}
+h1{font-weight:700;font-size:clamp(50px,9vw,104px);line-height:.95;margin:16px 0 10px;
+ background:linear-gradient(110deg,#fff 20%,var(--i) 40%,#fff 50%,#9cc4ea 65%,#fff 80%);background-size:250% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 6s linear infinite}
+h2{font-size:clamp(34px,5vw,54px);font-weight:600;margin:8px 0 14px}
+.sub{color:var(--i);letter-spacing:.12em;margin:4px 0 18px}
+.lead{color:#cfe0ef;line-height:1.8;font-size:17px;max-width:620px}
+.split{display:grid;grid-template-columns:1.15fr 1fr;gap:44px;align-items:center;min-height:calc(100vh - 110px)}
+.greet{display:flex;align-items:flex-end;gap:6px}
+.man{width:min(190px,45vw);flex:none;animation:bob 4s ease-in-out infinite;filter:drop-shadow(0 20px 30px #0008)}
+.wave{transform-origin:138px 125px;animation:wave 1.8s ease-in-out infinite}
+.eye{transform-box:fill-box;transform-origin:center;animation:blink 5s infinite}
+.bubble{position:relative;background:#fff;color:var(--n);padding:14px 18px;border-radius:20px 20px 20px 4px;font-weight:500;max-width:260px;margin-bottom:90px;box-shadow:0 12px 30px #0006;animation:pop .6s}
+.bubble::before{content:"";position:absolute;left:-9px;bottom:0;border:10px solid transparent;border-right-color:#fff;border-bottom-color:#fff}
+.chips{display:flex;gap:10px;flex-wrap:wrap;margin:6px 0 18px}
+.chips span{padding:9px 16px;border:1px solid var(--line);border-radius:99px;background:var(--glass);font-size:13px;color:var(--i)}
+.cd{display:flex;gap:10px}.cdb{min-width:78px;padding:12px;border-radius:16px;border:1px solid var(--line);background:var(--glass);text-align:center}
+.cdb b{font-family:"Cormorant Garamond",serif;font-size:34px;display:block;line-height:1}.cdb small{color:var(--i);font-size:11px;letter-spacing:.15em;text-transform:uppercase}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;margin-top:26px}
+.card{background:var(--glass);border:1px solid var(--line);border-radius:22px;padding:26px;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);transition:.4s;position:relative;overflow:hidden}
+.card:hover{transform:translateY(-5px);border-color:#cfe6f78c;box-shadow:0 20px 50px #0008}
+.stat{font-family:"Cormorant Garamond",serif;font-size:44px;font-weight:700;line-height:1;display:block;margin-bottom:8px}.card small{color:var(--i)}
+.tabs{display:flex;gap:6px;background:#ffffff0d;border-radius:99px;padding:5px;margin-bottom:12px}
+.tabs button{flex:1;border:0;background:transparent;color:var(--i);padding:11px;border-radius:99px;font:inherit;cursor:pointer;letter-spacing:.12em;text-transform:uppercase;font-size:12px;transition:.3s}
+.tabs button.on{background:linear-gradient(135deg,var(--w),#2d6bc0);color:#fff}
+label{display:block;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--i);margin:14px 0 8px}
+input{width:100%;padding:15px 16px;background:#ffffff0d;border:1px solid var(--line);border-radius:14px;color:#fff;font:inherit;font-size:16px;transition:.3s}
+input:focus{outline:0;border-color:var(--i);box-shadow:0 0 0 4px #cfe6f722;background:#ffffff14}input::placeholder{color:#cfe6f760}
+.btn{display:inline-block;text-decoration:none;text-align:center;background:linear-gradient(135deg,var(--w),#2d6bc0);color:#fff;border:0;border-radius:99px;padding:15px 34px;font:inherit;font-weight:500;letter-spacing:.14em;text-transform:uppercase;font-size:13px;cursor:pointer;box-shadow:0 10px 30px #1D4F9199;transition:.3s;margin-top:20px}
+.btn:hover{transform:translateY(-2px)}.btn:disabled{opacity:.5}
+.btn.alt{background:transparent;border:1px solid var(--line);box-shadow:none;padding:10px 18px;font-size:11px;margin-top:0}.btn.alt:hover{border-color:var(--i)}
+.btns{display:flex;gap:10px;flex-wrap:wrap}.btns .btn{margin-top:14px}.btns .btn.alt{padding:15px 22px;font-size:13px}
+.msg{margin-top:14px;font-weight:500;min-height:20px}.msg.e{color:var(--err)}.msg.g{color:var(--ok)}
+.lay{display:grid;grid-template-columns:1fr 300px;gap:24px;align-items:start}
+.side{position:sticky;top:16px}.srow{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--line);font-size:14px;color:#9fbad2}
+.srow b{min-width:52px;color:var(--i)}.srow.on{color:#fff}.srow.on b{color:#8fe3b0}
+.ws h3{font-size:26px;margin:0 0 2px}.ws small{opacity:.8}
+.slots{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.slot{flex:1;min-width:120px;padding:12px;border:1px solid var(--line);background:transparent;border-radius:14px;cursor:pointer;font:inherit;color:#fff;transition:.3s}
+.slot:hover:not(:disabled){border-color:var(--i);transform:translateY(-2px)}
+.slot.on{background:linear-gradient(135deg,var(--w),#2d6bc0);border-color:transparent;box-shadow:0 8px 24px #1D4F9199;animation:pop .4s}
+.slot:disabled{opacity:.35;cursor:not-allowed}.slot span{display:block;font-size:12px;color:var(--i);margin-top:3px}.slot.on span{color:#fff}
+#ticket{margin:10px auto 0;max-width:420px;text-align:center;padding:34px 30px;border-radius:28px;background:linear-gradient(160deg,#ffffff1f,#ffffff08);border:1px solid var(--line);box-shadow:0 30px 80px #0009}
+#ticket h3{font-size:36px;margin:6px 0 20px}
+#qr{display:inline-block;padding:14px;background:#fff;border-radius:18px;box-shadow:0 0 60px #cfe6f755;line-height:0}
+#qr img{width:220px;height:220px;max-width:62vw;max-height:62vw;image-rendering:pixelated}
+#pid{font-family:monospace;font-size:12px;color:#9fbad2;word-break:break-all;margin-top:14px}
+#qrErr{color:var(--err);font-size:14px;margin-top:10px}
+#tn{font-size:20px;font-weight:500;margin:20px 0 6px}#tl div{color:var(--i);margin:3px 0}.hint{color:#9fbad2;font-size:13px;margin-top:16px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:30px}
+.stars{display:flex;gap:6px;margin:10px 0}.stars button{background:none;border:0;font-size:36px;cursor:pointer;color:#ffffff30;transition:.25s;padding:0}
+.stars button.on{color:#ffd166;transform:scale(1.1)}.stars button:hover{transform:scale(1.25)}
+.tw{overflow-x:auto;border:1px solid var(--line);border-radius:18px;background:var(--glass)}
+table{width:100%;border-collapse:collapse;font-size:14px}th,td{padding:12px 14px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--i);font-weight:500}tr:hover td{background:#ffffff08}.ok{color:var(--ok);font-weight:600}
+.bar{display:flex;gap:12px;flex-wrap:wrap;align-items:end;margin:22px 0}.bar>div{flex:1;min-width:200px}
+h3.t{font-size:28px;margin:34px 0 12px}
+footer{text-align:center;padding:30px;color:#8fb0cf;font-size:13px;letter-spacing:.1em;position:relative;z-index:1}footer a{color:var(--i)}
+@keyframes shine{to{background-position:-250% 0}}@keyframes bob{50%{transform:translateY(-12px)}}
+@keyframes wave{50%{transform:rotate(-28deg)}}@keyframes blink{0%,94%,100%{transform:scaleY(1)}97%{transform:scaleY(.1)}}
+@keyframes pop{50%{transform:scale(1.06)}}@keyframes rise{from{opacity:0;transform:translateY(30px)}}
+/* ===== tablet ===== */
+@media(max-width:900px){
+ .split{grid-template-columns:1fr;text-align:center;min-height:auto;gap:30px}.chips,.cd,.greet{justify-content:center}
+ .lay{grid-template-columns:1fr}
+ .side{position:sticky;top:auto;bottom:calc(10px + env(safe-area-inset-bottom));z-index:6;background:rgba(9,28,58,.95);padding:16px}
+ .side .eyebrow,#sn{display:none}.srow{padding:8px 0}.side .btn{margin-top:12px}
+ .two{grid-template-columns:1fr}
+}
+/* ===== phone ===== */
+@media(max-width:640px){
+ .top{padding:12px 16px}.logo{height:42px}
+ .steps{order:3;width:100%;justify-content:center}.steps span{padding:7px 10px;font-size:10px;letter-spacing:.08em}
+ .wrap{padding:0 16px}.card{padding:20px;border-radius:18px}
+ .cdb{min-width:70px}.bubble{max-width:190px;font-size:14px;margin-bottom:70px}
+ h1{font-size:clamp(44px,15vw,72px)}.eyebrow{letter-spacing:.25em}
+ .btn{width:100%}.btn.alt{width:auto}.btns .btn{flex:1}
+ .stars button{font-size:42px}#ticket{padding:26px 18px}
+ .slot{min-width:100px}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style></head><body>
+<canvas id="snow"></canvas>
+
+<header class="top">
+ <img class="logo" src="logo.png" alt="International Technical Colleges" onerror="this.style.display='none'">
+ <div class="steps" id="steps"><span data-s="1">1 · Welcome</span><span data-s="2">2 · Workshops</span><span data-s="3">3 · Your pass</span></div>
+ <div id="who" hidden><i id="av"></i><span>Hi, <b id="whoName"></b></span><a href="#" id="so">Sign out</a></div>
+</header>
+
+<div id="pub"><main class="wrap">
+
+ <section class="page" id="p1"><div class="split">
+  <div>
+   <div class="greet">
+    <svg class="man" viewBox="0 0 200 270" role="img" aria-label="Snowman with a red scarf waving">
+     <ellipse cx="100" cy="258" rx="62" ry="8" fill="#000" opacity=".25"/>
+     <circle cx="100" cy="200" r="58" fill="#fff" stroke="#CFE6F7" stroke-width="3"/>
+     <circle cx="100" cy="128" r="42" fill="#fff" stroke="#CFE6F7" stroke-width="3"/>
+     <g stroke="#6b4423" stroke-width="5" stroke-linecap="round" fill="none"><path d="M62 125 L24 150 M34 143 L22 158 M44 138 L38 156"/></g>
+     <g class="wave" stroke="#6b4423" stroke-width="5" stroke-linecap="round" fill="none"><path d="M138 125 L176 92 M166 100 L172 82 M158 106 L176 106"/></g>
+     <circle cx="100" cy="70" r="33" fill="#fff" stroke="#CFE6F7" stroke-width="3"/>
+     <circle class="eye" cx="90" cy="64" r="4" fill="#0B2447"/><circle class="eye" cx="110" cy="64" r="4" fill="#0B2447"/>
+     <path d="M100 72 L124 78 L100 83 Z" fill="#ff8a3d"/>
+     <g fill="#0B2447"><circle cx="86" cy="86" r="2"/><circle cx="92" cy="90" r="2"/><circle cx="100" cy="92" r="2"/><circle cx="108" cy="90" r="2"/><circle cx="114" cy="86" r="2"/></g>
+     <path d="M66 100 Q100 122 134 100 L137 114 Q100 136 63 114 Z" fill="#d62839"/>
+     <path d="M114 116 L134 112 L142 160 L120 164 Z" fill="#b5172b"/>
+     <path d="M118 130 L138 126 M120 144 L141 140" stroke="#ff6b7a" stroke-width="3"/>
+     <g fill="#0B2447"><circle cx="100" cy="155" r="4.5"/><circle cx="100" cy="185" r="4.5"/><circle cx="100" cy="215" r="4.5"/></g>
+    </svg>
+    <div class="bubble" id="bubble">Hi there! Welcome to The Winter Day ❄</div>
+   </div>
+   <div class="eyebrow">International Technical Colleges</div>
+   <h1>The Winter Day</h1>
+   <p class="sub">ELEVATE EVENTS · AN OPEN DAY WITH A WINTER SPIRIT</p>
+   <div class="chips"><span>📅 December 17</span><span>🎓 1,300+ students</span><span>🛠 4 workshops</span></div>
+   <div class="cd" id="cd"></div>
+  </div>
+  <div class="card">
+   <div class="tabs"><button id="tUp" class="on">Sign up</button><button id="tIn">Sign in</button></div>
+   <form id="fUp" novalidate>
+    <label for="n">Full name</label><input id="n" autocomplete="name" placeholder="Your full name">
+    <label for="m">Mobile number</label><input id="m" inputmode="numeric" placeholder="05XXXXXXXX" autocomplete="tel">
+    <label for="e">Email address</label><input id="e" type="email" placeholder="you@example.com" autocomplete="email">
+    <button class="btn" id="bUp">Create my account</button>
+   </form>
+   <form id="fIn" hidden novalidate>
+    <label for="se">Email address</label><input id="se" type="email" placeholder="you@example.com" autocomplete="email">
+    <label for="sm">Mobile number</label><input id="sm" inputmode="numeric" placeholder="05XXXXXXXX" autocomplete="tel">
+    <button class="btn" id="bIn">Sign in</button>
+   </form>
+   <div id="msg1" class="msg" role="alert"></div>
+  </div>
+ </div></section>
+
+ <section class="page" id="p2" hidden>
+  <div class="eyebrow">Step 2 · Your schedule</div><h2 id="hi">Welcome</h2>
+  <p class="lead">Pick your workshop sessions. One session per time slot, 10 seats each. You can also skip workshops and just join the event.</p>
+  <div class="lay" style="margin-top:10px">
+   <div><div id="ws" class="grid" style="margin-top:0"><div class="card">Loading workshops…</div></div></div>
+   <aside class="card side">
+    <div class="eyebrow">My day</div><h3 class="serif" id="sn" style="font-size:28px;margin:8px 0 6px"></h3>
+    <div id="sched"></div>
+    <button class="btn" id="cont" style="width:100%">Continue to my pass</button>
+    <div id="msg2" class="msg" role="alert"></div>
+   </aside>
+  </div>
+ </section>
+
+ <section class="page" id="p3" hidden>
+  <div id="ticket">
+   <div class="eyebrow">You're in</div><h3>Winter Pass</h3>
+   <div id="qr"></div>
+   <div id="qrErr" hidden>Could not draw the QR code. Show the code below at the entrance instead.</div>
+   <div id="pid"></div>
+   <div id="tn"></div><div id="tl"></div>
+   <p class="hint">Take a screenshot and show this code at the entrance.</p>
+   <button class="btn alt" id="edit">Change my workshops</button>
+  </div>
+  <div class="two">
+   <div class="card">
+    <div class="eyebrow">Rate this website</div><h3 style="font-size:28px;margin:8px 0">How was your experience?</h3>
+    <div class="stars" id="stars"><button data-v="1">★</button><button data-v="2">★</button><button data-v="3">★</button><button data-v="4">★</button><button data-v="5">★</button></div>
+    <label for="cm">Comment (optional)</label><input id="cm" maxlength="500" placeholder="Tell us what you think">
+    <button class="btn" id="rate" style="margin-top:16px">Send rating</button>
+    <div id="msg3" class="msg"></div>
+   </div>
+   <div class="card">
+    <div class="eyebrow">Website developer</div><h3 style="font-size:36px;margin:8px 0">Rana Al Harbi</h3>
+    <p class="lead" style="font-size:15px">Want a website of your own, or have feedback? Get in touch.</p>
+    <div class="btns"><a class="btn" href="tel:+966567153386">Call 0567153386</a>
+    <a class="btn alt" href="https://wa.me/966567153386" target="_blank" rel="noopener">WhatsApp</a></div>
+   </div>
+  </div>
+ </section>
+</main>
+<footer>THE WINTER DAY · INTERNATIONAL TECHNICAL COLLEGES · <a href="#admin">Organizer login</a></footer>
+</div>
+
+<div id="adm" hidden><main class="wrap" style="padding-top:20px">
+ <div class="eyebrow">Elevate Events</div><h2>Organizer Dashboard</h2>
+ <form id="lf" class="bar"><div><label for="ae">Email</label><input id="ae" type="email"></div>
+  <div><label for="ap">Password</label><input id="ap" type="password"></div><button class="btn" style="margin:0">Sign in</button></form>
+ <div id="lmsg" class="msg e"></div>
+ <div id="panel" hidden>
+  <div class="grid" id="stats"></div>
+  <div class="bar">
+   <div><label for="q">Search name / mobile / email</label><input id="q"></div>
+   <div><label for="code">Check-in code (scan or paste)</label><input id="code"></div>
+   <button class="btn alt" id="ci">Check in</button><button class="btn alt" id="csv">Export CSV</button><button class="btn alt" id="out">Sign out</button>
+  </div>
+  <div id="amsg" class="msg"></div>
+  <h3 class="t">Session capacity</h3><div class="tw"><table id="sess"></table></div>
+  <h3 class="t">Registered guests</h3><div class="tw"><table id="gt"></table></div>
+  <h3 class="t">Website ratings</h3><div class="tw"><table id="rt"></table></div>
+ </div>
+ <p style="margin:30px 0"><a href="#" style="color:var(--i)">← Back to site</a></p>
+</main></div>
+
+<script>
+const SB_URL="https://gylnboxahkncnypfxdmv.supabase.co", SB_KEY="sb_publishable_CeVhMp5BfDroWCZG9W87Uw_6Wp_E2TW";
+const db=supabase.createClient(SB_URL,SB_KEY);
+const $=s=>document.querySelector(s);
+const esc=t=>String(t??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const say=(el,t,c)=>{el.className="msg "+(c||"");el.textContent=t};
+let me=null, picked={}, byId={}, stars=0, guests=[], cur=1;
+try{me=JSON.parse(sessionStorage.getItem("wd"))}catch(e){}
+const store=()=>{try{me?sessionStorage.setItem("wd",JSON.stringify(me)):sessionStorage.removeItem("wd")}catch(e){}};
+cur=me?2:1;
+
+/* ---------- Snowfall ---------- */
+(()=>{const c=$("#snow"),x=c.getContext("2d");let W,H,f=[];
+ const size=()=>{W=c.width=innerWidth;H=c.height=innerHeight;f=Array.from({length:Math.min(90,W/12|0)},()=>({x:Math.random()*W,y:Math.random()*H,r:Math.random()*2.4+.6,v:Math.random()*.7+.3,d:Math.random()*6}))};
+ size();addEventListener("resize",size);if(matchMedia("(prefers-reduced-motion:reduce)").matches)return;
+ (function t(){x.clearRect(0,0,W,H);x.fillStyle="rgba(220,238,252,.8)";
+  f.forEach(p=>{p.y+=p.v;p.d+=.01;p.x+=Math.sin(p.d)*.4;if(p.y>H+5){p.y=-5;p.x=Math.random()*W}x.globalAlpha=.25+p.r/3.5;x.beginPath();x.arc(p.x,p.y,p.r,0,7);x.fill()});
+  requestAnimationFrame(t)})()})();
+
+/* ---------- Countdown ---------- */
+function tick(){const d=new Date("2026-12-17T10:00:00")-new Date(),el=$("#cd");
+ if(d<=0){el.innerHTML='<div class="cdb"><b>Today!</b><small>The Winter Day</small></div>';return}
+ const D=Math.floor(d/864e5),H=Math.floor(d%864e5/36e5),M=Math.floor(d%36e5/6e4);
+ el.innerHTML=[[D,"days"],[H,"hours"],[M,"min"]].map(([v,k])=>`<div class="cdb"><b>${v}</b><small>${k}</small></div>`).join("")}
+tick();setInterval(tick,30000);
+
+/* ---------- Navigation ---------- */
+function go(n){
+  if(n>1&&!me)n=1;cur=n;
+  document.querySelectorAll(".page").forEach(p=>p.hidden=p.id!=="p"+n);
+  document.querySelectorAll("#steps span").forEach(s=>s.classList.toggle("on",+s.dataset.s<=n));
+  $("#who").hidden=!me;if(me){$("#whoName").textContent=me.name.split(" ")[0];$("#av").textContent=me.name.trim()[0]?.toUpperCase()||"?"}
+  scrollTo(0,0);if(n===2)initP2();if(n===3)initP3();
+}
+$("#so").onclick=e=>{e.preventDefault();me=null;picked={};stars=0;store();go(1)};
+
+/* ---------- Page 1 ---------- */
+$("#n").addEventListener("input",e=>{const f=e.target.value.trim().split(" ")[0];
+  $("#bubble").textContent=f?`Nice to meet you, ${f}! ⛄`:"Hi there! Welcome to The Winter Day ❄"});
+$("#tUp").onclick=()=>{$("#fUp").hidden=false;$("#fIn").hidden=true;$("#tUp").classList.add("on");$("#tIn").classList.remove("on");say($("#msg1"),"")};
+$("#tIn").onclick=()=>{$("#fUp").hidden=true;$("#fIn").hidden=false;$("#tIn").classList.add("on");$("#tUp").classList.remove("on");say($("#msg1"),"");$("#bubble").textContent="Welcome back! Good to see you again 💙"};
+const okMobile=v=>/^05\d{8}$/.test(v), okMail=v=>/^\S+@\S+\.\S+$/.test(v);
+$("#fUp").addEventListener("submit",async e=>{
+  e.preventDefault();const m=$("#msg1");
+  const name=$("#n").value.trim(),mobile=$("#m").value.trim(),email=$("#e").value.trim();
+  if(name.length<2||!okMobile(mobile)||!okMail(email))return say(m,"Please check your name, mobile (05XXXXXXXX) and email.","e");
+  $("#bUp").disabled=true;
+  const {data,error}=await db.rpc("register_guest",{p_name:name,p_mobile:mobile,p_email:email,p_sessions:[]});
+  $("#bUp").disabled=false;
+  if(error)return say(m,error.message+(/already/.test(error.message)?" Use the Sign in tab.":""),"e");
+  me={id:data,name};store();picked={};go(2);
+});
+$("#fIn").addEventListener("submit",async e=>{
+  e.preventDefault();const m=$("#msg1");
+  const email=$("#se").value.trim(),mobile=$("#sm").value.trim();
+  if(!okMail(email)||!okMobile(mobile))return say(m,"Enter the email and mobile you registered with.","e");
+  $("#bIn").disabled=true;
+  const {data,error}=await db.rpc("login_guest",{p_email:email,p_mobile:mobile});
+  $("#bIn").disabled=false;
+  if(error)return say(m,error.message,"e");
+  me={id:data.id,name:data.name};store();picked={};go(2);
+});
+
+/* ---------- Page 2 ---------- */
+async function fetchSessions(){
+  const {data,error}=await db.from("session_availability").select("*").order("workshop_title").order("slot_no");
+  if(error){console.error(error);return null}
+  byId={};data.forEach(s=>byId[s.id]=s);return data;
+}
+async function initP2(){
+  const first=me.name.split(" ")[0];
+  $("#hi").textContent=`Welcome, ${first} ❄`;$("#sn").textContent=me.name;say($("#msg2"),"");
+  const [data,mine]=await Promise.all([fetchSessions(),db.rpc("my_bookings",{p_guest:me.id})]);
+  if(!data){$("#ws").innerHTML='<div class="card">Could not load workshops.</div>';return}
+  const mineSet=new Set(mine.data||[]);
+  if(!Object.keys(picked).length)mineSet.forEach(id=>{if(byId[id])picked[byId[id].slot_no]=id});
+  const by={};data.forEach(s=>(by[s.workshop_title]??=[]).push(s));
+  $("#ws").innerHTML=Object.entries(by).map(([t,ss])=>`<div class="card ws"><h3>${esc(t)}</h3><small>${esc(ss[0].location||"")}</small>
+   <div class="slots">${ss.map(s=>{const full=s.seats_left<=0&&!mineSet.has(s.id);
+   return `<button type="button" class="slot" data-id="${s.id}" data-slot="${s.slot_no}" ${full?"disabled":""}>${esc(s.time_label)}<span>${full?"Fully booked":s.seats_left+" seats left"}</span></button>`}).join("")}</div></div>`).join("");
+  paint();
+}
+function paint(){
+  document.querySelectorAll(".slot").forEach(b=>b.classList.toggle("on",picked[b.dataset.slot]===b.dataset.id));
+  const lab=n=>Object.values(byId).find(x=>x.slot_no===n)?.time_label||"";
+  $("#sched").innerHTML=[1,2].map(n=>{const s=byId[picked[n]];
+    return `<div class="srow ${s?"on":""}"><b>Slot ${n}</b><span>${esc(lab(n))}<br>${s?esc(s.workshop_title):"Free · nothing booked"}</span></div>`}).join("");
+}
+$("#ws").addEventListener("click",e=>{
+  const b=e.target.closest(".slot");if(!b||b.disabled)return;
+  picked[b.dataset.slot]===b.dataset.id?delete picked[b.dataset.slot]:picked[b.dataset.slot]=b.dataset.id;paint();
+});
+$("#cont").onclick=async()=>{
+  const m=$("#msg2");$("#cont").disabled=true;say(m,"Saving…");
+  try{
+    const {error}=await db.rpc("save_bookings",{p_guest:me.id,p_sessions:Object.values(picked)});
+    if(error){say(m,error.message,"e");initP2();return}
+    go(3);
+  }catch(err){console.error(err);say(m,"Something went wrong. Please try again.","e")}
+  finally{$("#cont").disabled=false}
+};
+
+/* ---------- Page 3 ---------- */
+async function initP3(){
+  $("#tn").textContent=me.name;$("#pid").textContent=me.id;
+  try{
+    const q=qrcode(0,"M");q.addData(me.id);q.make();
+    $("#qr").innerHTML=q.createImgTag(8,0,"Your QR code");$("#qr").hidden=false;$("#qrErr").hidden=true;
+  }catch(err){console.error("QR error:",err);$("#qr").hidden=true;$("#qrErr").hidden=false}
+  try{
+    const [data,mine]=await Promise.all([fetchSessions(),db.rpc("my_bookings",{p_guest:me.id})]);
+    const ids=(mine.data||[]).filter(i=>byId[i]);
+    $("#tl").innerHTML=ids.length?ids.map(i=>`<div>${esc(byId[i].workshop_title)} · ${esc(byId[i].time_label)}</div>`).join(""):"No workshops booked";
+  }catch(err){console.error(err)}
+}
+$("#edit").onclick=()=>go(2);
+const paintStars=()=>document.querySelectorAll("#stars button").forEach(b=>b.classList.toggle("on",+b.dataset.v<=stars));
+$("#stars").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;stars=+b.dataset.v;paintStars()});
+$("#rate").onclick=async()=>{
+  const m=$("#msg3");if(!stars)return say(m,"Please choose 1 to 5 stars.","e");
+  const {error}=await db.rpc("submit_rating",{p_guest:me.id,p_stars:stars,p_comment:$("#cm").value});
+  error?say(m,error.message,"e"):say(m,"Thank you for your feedback! 💙","g");
+};
+
+/* ---------- Admin ---------- */
+async function initAdmin(){
+  const {data:{session}}=await db.auth.getSession();
+  if(!session){$("#lf").hidden=false;$("#panel").hidden=true;return}
+  const {data:ok}=await db.rpc("is_admin");
+  if(!ok){$("#lmsg").textContent="This account does not have admin access.";$("#panel").hidden=true;return}
+  $("#lf").hidden=true;$("#lmsg").textContent="";$("#panel").hidden=false;loadAdmin();
+}
+$("#lf").addEventListener("submit",async e=>{
+  e.preventDefault();
+  const {error}=await db.auth.signInWithPassword({email:$("#ae").value.trim(),password:$("#ap").value});
+  if(error)$("#lmsg").textContent="Incorrect email or password.";else initAdmin();
+});
+$("#out").onclick=async()=>{await db.auth.signOut();initAdmin()};
+async function loadAdmin(){
+  const [g,s,r]=await Promise.all([
+    db.from("guests").select("id,name,mobile,email,checked_in,created_at,bookings(sessions(slot_no,time_label,workshops(title)))").order("created_at",{ascending:false}),
+    db.from("session_availability").select("*").order("workshop_title").order("slot_no"),
+    db.from("ratings").select("stars,comment,created_at,guests(name)").order("created_at",{ascending:false})]);
+  if(g.error||s.error||r.error){$("#amsg").className="msg e";$("#amsg").textContent=(g.error||s.error||r.error).message;return}
+  guests=g.data;
+  const avg=r.data.length?(r.data.reduce((a,x)=>a+x.stars,0)/r.data.length).toFixed(1):"–";
+  $("#stats").innerHTML=[["Registered",guests.length],["Checked in",guests.filter(x=>x.checked_in).length],["Workshop bookings",guests.reduce((a,x)=>a+x.bookings.length,0)],["Avg. rating",avg+" ★"]]
+    .map(([k,v])=>`<div class="card"><span class="stat">${v}</span><small>${k}</small></div>`).join("");
+  $("#sess").innerHTML="<tr><th>Workshop</th><th>Time</th><th>Booked</th><th>Left</th></tr>"+
+    s.data.map(x=>`<tr><td>${esc(x.workshop_title)}</td><td>${esc(x.time_label)}</td><td>${x.capacity-x.seats_left}/${x.capacity}</td><td>${x.seats_left}</td></tr>`).join("");
+  $("#rt").innerHTML="<tr><th>Guest</th><th>Stars</th><th>Comment</th></tr>"+
+    (r.data.map(x=>`<tr><td>${esc(x.guests?.name)}</td><td>${"★".repeat(x.stars)}</td><td>${esc(x.comment)||"—"}</td></tr>`).join("")||'<tr><td colspan="3">No ratings yet</td></tr>');
+  renderGuests();
+}
+const wsText=x=>x.bookings.map(b=>`${b.sessions.workshops.title} (${b.sessions.time_label})`).join(", ");
+function renderGuests(){
+  const q=$("#q").value.trim().toLowerCase();
+  const rows=guests.filter(x=>!q||[x.name,x.mobile,x.email].some(v=>v.toLowerCase().includes(q)));
+  $("#gt").innerHTML="<tr><th>Name</th><th>Mobile</th><th>Email</th><th>Workshops</th><th>Status</th><th></th></tr>"+
+   rows.map(x=>`<tr><td>${esc(x.name)}</td><td>${esc(x.mobile)}</td><td>${esc(x.email)}</td><td>${esc(wsText(x))||"—"}</td>
+   <td>${x.checked_in?'<span class="ok">Checked in</span>':"—"}</td>
+   <td style="white-space:nowrap"><button class="btn alt" data-t="${x.id}">${x.checked_in?"Undo":"Check in"}</button>
+   <button class="btn alt" data-d="${x.id}">Delete</button></td></tr>`).join("");
+}
+$("#q").oninput=renderGuests;
+$("#gt").addEventListener("click",async e=>{
+  const t=e.target.dataset.t,d=e.target.dataset.d;
+  if(t){const g=guests.find(x=>x.id===t);await db.from("guests").update({checked_in:!g.checked_in}).eq("id",t);loadAdmin()}
+  if(d&&confirm("Permanently delete this guest and their bookings?")){await db.from("guests").delete().eq("id",d);loadAdmin()}
+});
+$("#ci").onclick=async()=>{
+  const id=$("#code").value.trim(),m=$("#amsg");
+  const {data,error}=await db.from("guests").update({checked_in:true}).eq("id",id).select("name");
+  const bad=error||!data?.length;m.className="msg "+(bad?"e":"g");
+  m.textContent=bad?"Invalid code":`Checked in: ${data[0].name}`;$("#code").value="";loadAdmin();
+};
+$("#code").addEventListener("keydown",e=>{if(e.key==="Enter")$("#ci").click()});
+$("#csv").onclick=()=>{
+  const c=v=>`"${String(v).replace(/"/g,'""')}"`;
+  const rows=[["Name","Mobile","Email","Workshops","Checked in"],...guests.map(x=>[x.name,x.mobile,x.email,wsText(x),x.checked_in?"Yes":"No"])];
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(new Blob(["\ufeff"+rows.map(r=>r.map(c).join(",")).join("\n")],{type:"text/csv"}));
+  a.download="winter-day-guests.csv";a.click();
+};
+
+/* ---------- Routing ---------- */
+function route(){const a=location.hash==="#admin";$("#pub").hidden=a;$("#adm").hidden=!a;a?initAdmin():go(cur)}
+addEventListener("hashchange",route);route();
+</script></body></html>
