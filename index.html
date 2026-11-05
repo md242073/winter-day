@@ -3,7 +3,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>The Winter Day | International Technical Colleges</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Cairo:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js"></script>
@@ -82,6 +82,22 @@ th{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--i);fo
 h3.t{font-size:28px;margin:34px 0 12px}
 #reader{border-radius:16px;overflow:hidden}#reader video{border-radius:16px}
 footer{text-align:center;padding:30px;color:#8fb0cf;font-size:13px;letter-spacing:.1em;position:relative;z-index:1}footer a{color:var(--i)}
+
+html[lang=ar] body,html[lang=ar] input,html[lang=ar] button{font-family:Cairo,"Segoe UI",Arial,sans-serif}
+html[lang=ar] h1,html[lang=ar] h2,html[lang=ar] h3,html[lang=ar] .serif,html[lang=ar] .stat,html[lang=ar] .cdb b{font-family:Cairo,"Segoe UI",Arial,sans-serif}
+html[lang=ar] .eyebrow,html[lang=ar] label,html[lang=ar] .btn,html[lang=ar] .steps,html[lang=ar] .sub,html[lang=ar] .tabs button{letter-spacing:0}
+html[lang=ar] h1{line-height:1.2;font-size:clamp(44px,8vw,88px)}
+[dir=rtl] .bubble{border-radius:20px 20px 4px 20px}
+[dir=rtl] .bubble::before{left:auto;right:-9px;border-right-color:transparent;border-left-color:#fff}
+[dir=rtl] #m,[dir=rtl] #sm,[dir=rtl] #e,[dir=rtl] #se{direction:ltr;text-align:left}
+.tr{display:flex;align-items:center;gap:14px}
+.ann{max-width:1080px;margin:0 auto 6px;padding:0 22px;position:relative;z-index:2}
+.ann div{background:linear-gradient(135deg,#1D4F91,#2d6bc0);border-radius:16px;padding:12px 18px;font-weight:500;box-shadow:0 10px 30px #1D4F9166;animation:rise .6s}
+.pb{height:8px;min-width:80px;background:#ffffff18;border-radius:9px;overflow:hidden}.pb i{display:block;height:100%;background:linear-gradient(90deg,var(--w),#8fe3b0)}
+select{width:100%;padding:15px 16px;background:#0B2447;border:1px solid var(--line);border-radius:14px;color:#fff;font:inherit;font-size:16px}
+@media print{body{background:#fff!important;color:#000}#snow,.top,.btn,#scanCard,#annCard,.bar,footer,#lf,.noprint,#ann{display:none!important}
+ .card,.tw{background:#fff!important;border:1px solid #999!important;box-shadow:none!important;color:#000}th,td{color:#000!important;border-color:#999!important}
+ .stat,h2,h3,.eyebrow,small{color:#000!important;-webkit-text-fill-color:#000;font-family:Georgia,serif}.ok{color:#060!important}}
 @keyframes shine{to{background-position:-250% 0}}@keyframes bob{50%{transform:translateY(-12px)}}
 @keyframes wave{50%{transform:rotate(-28deg)}}@keyframes blink{0%,94%,100%{transform:scaleY(1)}97%{transform:scaleY(.1)}}
 @keyframes pop{50%{transform:scale(1.06)}}@keyframes rise{from{opacity:0;transform:translateY(30px)}}
@@ -107,9 +123,13 @@ footer{text-align:center;padding:30px;color:#8fb0cf;font-size:13px;letter-spacin
 
 <header class="top">
  <img class="logo" src="logo.png" alt="International Technical Colleges" onerror="this.style.display='none'">
- <div class="steps" id="steps"><span data-s="1">1 · Welcome</span><span data-s="2">2 · Workshops</span><span data-s="3">3 · Your pass</span></div>
- <div id="who" hidden><i id="av"></i><span>Hi, <b id="whoName"></b></span><a href="#" id="so">Sign out</a></div>
+ <div class="steps" id="steps"><span data-s="1" data-i="s1"></span><span data-s="2" data-i="s2"></span><span data-s="3" data-i="s3"></span></div>
+ <div class="tr">
+  <button class="btn alt" id="lang" type="button">العربية</button>
+  <div id="who" hidden><i id="av"></i><span><span data-i="hi"></span> <b id="whoName"></b></span><a href="#" id="so" data-i="so"></a></div>
+ </div>
 </header>
+<div class="ann" id="ann" hidden></div>
 
 <div id="pub"><main class="wrap">
 
@@ -131,40 +151,40 @@ footer{text-align:center;padding:30px;color:#8fb0cf;font-size:13px;letter-spacin
      <path d="M118 130 L138 126 M120 144 L141 140" stroke="#ff6b7a" stroke-width="3"/>
      <g fill="#0B2447"><circle cx="100" cy="155" r="4.5"/><circle cx="100" cy="185" r="4.5"/><circle cx="100" cy="215" r="4.5"/></g>
     </svg>
-    <div class="bubble" id="bubble">Hi there! Welcome to The Winter Day ❄</div>
+    <div class="bubble" id="bubble"></div>
    </div>
-   <div class="eyebrow">International Technical Colleges</div>
+   <div class="eyebrow" data-i="org"></div>
    <h1>The Winter Day</h1>
-   <p class="sub">ELEVATE EVENTS · AN OPEN DAY WITH A WINTER SPIRIT</p>
-   <div class="chips"><span>📅 December 17</span><span>🎓 1,300+ students</span><span>🛠 4 workshops</span></div>
+   <p class="sub" data-i="sub"></p>
+   <div class="chips"><span data-i="c1"></span><span data-i="c2"></span><span data-i="c3"></span></div>
    <div class="cd" id="cd"></div>
   </div>
   <div class="card">
-   <div class="tabs"><button id="tUp" class="on">Sign up</button><button id="tIn">Sign in</button></div>
+   <div class="tabs"><button id="tUp" class="on" data-i="tup" type="button"></button><button id="tIn" data-i="tin" type="button"></button></div>
    <form id="fUp" novalidate>
-    <label for="n">Full name</label><input id="n" autocomplete="name" placeholder="Your full name">
-    <label for="m">Mobile number</label><input id="m" inputmode="numeric" placeholder="05XXXXXXXX" autocomplete="tel">
-    <label for="e">Email address</label><input id="e" type="email" placeholder="you@example.com" autocomplete="email">
-    <button class="btn" id="bUp">Create my account</button>
+    <label for="n" data-i="name"></label><input id="n" autocomplete="name" data-ph="phn">
+    <label for="m" data-i="mob"></label><input id="m" inputmode="numeric" placeholder="05XXXXXXXX" autocomplete="tel">
+    <label for="e" data-i="mail"></label><input id="e" type="email" placeholder="you@example.com" autocomplete="email">
+    <button class="btn" id="bUp" data-i="create"></button>
    </form>
    <form id="fIn" hidden novalidate>
-    <label for="se">Email address</label><input id="se" type="email" placeholder="you@example.com" autocomplete="email">
-    <label for="sm">Mobile number</label><input id="sm" inputmode="numeric" placeholder="05XXXXXXXX" autocomplete="tel">
-    <button class="btn" id="bIn">Sign in</button>
+    <label for="se" data-i="mail"></label><input id="se" type="email" placeholder="you@example.com" autocomplete="email">
+    <label for="sm" data-i="mob"></label><input id="sm" inputmode="numeric" placeholder="05XXXXXXXX" autocomplete="tel">
+    <button class="btn" id="bIn" data-i="signin"></button>
    </form>
    <div id="msg1" class="msg" role="alert"></div>
   </div>
  </div></section>
 
  <section class="page" id="p2" hidden>
-  <div class="eyebrow">Step 2 · Your schedule</div><h2 id="hi">Welcome</h2>
-  <p class="lead">Pick your workshop sessions. One session per time slot, 10 seats each. You can also skip workshops and just join the event.</p>
+  <div class="eyebrow" data-i="st2"></div><h2 id="hi"></h2>
+  <p class="lead" data-i="lead2"></p>
   <div class="lay" style="margin-top:10px">
-   <div><div id="ws" class="grid" style="margin-top:0"><div class="card">Loading workshops…</div></div></div>
+   <div><div id="ws" class="grid" style="margin-top:0"></div></div>
    <aside class="card side">
-    <div class="eyebrow">My day</div><h3 class="serif" id="sn" style="font-size:28px;margin:8px 0 6px"></h3>
+    <div class="eyebrow" data-i="myday"></div><h3 class="serif" id="sn" style="font-size:28px;margin:8px 0 6px"></h3>
     <div id="sched"></div>
-    <button class="btn" id="cont" style="width:100%">Continue to my pass</button>
+    <button class="btn" id="cont" style="width:100%" data-i="cont"></button>
     <div id="msg2" class="msg" role="alert"></div>
    </aside>
   </div>
@@ -172,32 +192,35 @@ footer{text-align:center;padding:30px;color:#8fb0cf;font-size:13px;letter-spacin
 
  <section class="page" id="p3" hidden>
   <div id="ticket">
-   <div class="eyebrow">You're in</div><h3>Winter Pass</h3>
+   <div class="eyebrow" data-i="inn"></div><h3 data-i="pass"></h3>
    <div id="qr"></div>
-   <div id="qrErr" hidden>Could not draw the QR code. Show the code below at the entrance instead.</div>
+   <div id="qrErr" hidden data-i="qrerr"></div>
    <div id="pid"></div>
    <div id="tn"></div><div id="tl"></div>
-   <p class="hint">Take a screenshot and show this code at the entrance.</p>
-   <button class="btn alt" id="edit">Change my workshops</button>
+   <p class="hint" data-i="hint"></p>
+   <div class="btns" style="justify-content:center">
+    <button class="btn alt" id="edit" type="button" data-i="edit"></button>
+    <button class="btn alt" id="calBtn" type="button" data-i="cal"></button>
+   </div>
   </div>
   <div class="two">
    <div class="card">
-    <div class="eyebrow">Rate this website</div><h3 style="font-size:28px;margin:8px 0">How was your experience?</h3>
+    <div class="eyebrow" data-i="rate"></div><h3 style="font-size:28px;margin:8px 0" data-i="how"></h3>
     <div class="stars" id="stars"><button data-v="1">★</button><button data-v="2">★</button><button data-v="3">★</button><button data-v="4">★</button><button data-v="5">★</button></div>
-    <label for="cm">Comment (optional)</label><input id="cm" maxlength="500" placeholder="Tell us what you think">
-    <button class="btn" id="rate" style="margin-top:16px">Send rating</button>
+    <label for="cm" data-i="cmt"></label><input id="cm" maxlength="500" data-ph="cmtph">
+    <button class="btn" id="rate" style="margin-top:16px" data-i="send"></button>
     <div id="msg3" class="msg"></div>
    </div>
    <div class="card">
-    <div class="eyebrow">Website developer</div><h3 style="font-size:36px;margin:8px 0">Rana Al Harbi</h3>
-    <p class="lead" style="font-size:15px">Want a website of your own, or have feedback? Get in touch.</p>
-    <div class="btns"><a class="btn" href="tel:+966567153386">Call 0567153386</a>
-    <a class="btn alt" href="https://wa.me/966567153386" target="_blank" rel="noopener">WhatsApp</a></div>
+    <div class="eyebrow" data-i="dev"></div><h3 style="font-size:36px;margin:8px 0" data-i="devn"></h3>
+    <p class="lead" style="font-size:15px" data-i="devp"></p>
+    <div class="btns"><a class="btn" href="tel:+966567153386" data-i="call"></a>
+    <a class="btn alt" href="https://wa.me/966567153386" target="_blank" rel="noopener" data-i="wa"></a></div>
    </div>
   </div>
  </section>
 </main>
-<footer>THE WINTER DAY · INTERNATIONAL TECHNICAL COLLEGES · <a href="#admin">Organizer login</a></footer>
+<footer><span data-i="foot"></span> · <a href="#admin" data-i="orgl"></a></footer>
 </div>
 
 <div id="adm" hidden><main class="wrap" style="padding-top:20px">
@@ -207,23 +230,29 @@ footer{text-align:center;padding:30px;color:#8fb0cf;font-size:13px;letter-spacin
  <div id="lmsg" class="msg e"></div>
  <div id="panel" hidden>
   <div class="grid" id="stats"></div>
-  <div class="card" style="margin-top:22px">
+  <div class="card" id="annCard" style="margin-top:22px">
+   <div class="eyebrow">Announcements to all guests</div>
+   <div class="bar"><div><input id="annTxt" maxlength="200" placeholder="e.g. Workshop 2 moved to Lab G-63"></div><button class="btn alt" id="annGo">Publish</button></div>
+   <div id="annList"></div><div id="annMsg" class="msg"></div>
+  </div>
+  <div class="card" id="scanCard" style="margin-top:22px">
    <div class="eyebrow">QR scanner</div>
-   <button class="btn" id="scanBtn" style="margin-top:12px">Start scanning</button>
+   <label for="mode">Scan mode</label><select id="mode"><option value="">Event entrance (check-in)</option></select>
+   <button class="btn" id="scanBtn" style="margin-top:14px">Start scanning</button>
    <div id="reader" style="max-width:380px;margin-top:16px"></div>
    <div id="scanMsg" class="msg" role="status"></div>
   </div>
   <div class="bar">
    <div><label for="q">Search name / mobile / email</label><input id="q"></div>
    <div><label for="code">Check-in code (scan or paste)</label><input id="code"></div>
-   <button class="btn alt" id="ci">Check in</button><button class="btn alt" id="csv">Export CSV</button><button class="btn alt" id="out">Sign out</button>
+   <button class="btn alt" id="ci">Check in</button><button class="btn alt" id="csv">Export CSV</button><button class="btn alt" id="prt">Print report (PDF)</button><button class="btn alt" id="out">Sign out</button>
   </div>
   <div id="amsg" class="msg"></div>
-  <h3 class="t">Session capacity</h3><div class="tw"><table id="sess"></table></div>
+  <h3 class="t">Session capacity &amp; attendance</h3><div class="tw"><table id="sess"></table></div>
   <h3 class="t">Registered guests</h3><div class="tw"><table id="gt"></table></div>
   <h3 class="t">Website ratings</h3><div class="tw"><table id="rt"></table></div>
  </div>
- <p style="margin:30px 0"><a href="#" style="color:var(--i)">← Back to site</a></p>
+ <p class="noprint" style="margin:30px 0"><a href="#" style="color:var(--i)">← Back to site</a></p>
 </main></div>
 
 <script>
@@ -232,10 +261,54 @@ const db=supabase.createClient(SB_URL,SB_KEY);
 const $=s=>document.querySelector(s);
 const esc=t=>String(t??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const say=(el,t,c)=>{el.className="msg "+(c||"");el.textContent=t};
-let me=null, picked={}, byId={}, stars=0, guests=[], cur=1;
+
+/* ---------- Languages (English / Arabic) ---------- */
+const T={en:{s1:"1 · Welcome",s2:"2 · Workshops",s3:"3 · Your pass",hi:"Hi,",so:"Sign out",greet:"Hi there! Welcome to The Winter Day ❄",meet:"Nice to meet you, {n}! ⛄",back:"Welcome back! Good to see you again 💙",
+ org:"International Technical Colleges",sub:"ELEVATE EVENTS · AN OPEN DAY WITH A WINTER SPIRIT",c1:"📅 December 17",c2:"🎓 1,300+ students",c3:"🛠 4 workshops",days:"days",hours:"hours",min:"min",today:"Today!",
+ tup:"Sign up",tin:"Sign in",name:"Full name",phn:"Your full name",mob:"Mobile number",mail:"Email address",create:"Create my account",signin:"Sign in",
+ bad:"Please check your name, mobile (05XXXXXXXX) and email.",badin:"Enter the email and mobile you registered with.",usein:" Use the Sign in tab.",
+ st2:"Step 2 · Your schedule",welcome:"Welcome, {n} ❄",lead2:"Pick your workshop sessions. One session per time slot, 10 seats each. You can also skip workshops and just join the event.",
+ load:"Loading workshops…",fail:"Could not load workshops.",left:"{n} seats left",full:"Fully booked",myday:"My day",slot:"Slot {n}",free:"Free · nothing booked",
+ cont:"Continue to my pass",saving:"Saving…",slow:"The server took too long. Please try again.",wrong:"Something went wrong: ",
+ inn:"You're in",pass:"Winter Pass",qrerr:"Could not draw the QR code. Show the code below at the entrance instead.",hint:"Take a screenshot and show this code at the entrance.",
+ edit:"Change my workshops",nows:"No workshops booked",cal:"Add to my calendar",rate:"Rate this website",how:"How was your experience?",cmt:"Comment (optional)",cmtph:"Tell us what you think",
+ send:"Send rating",pick:"Please choose 1 to 5 stars.",thanks:"Thank you for your feedback! 💙",dev:"Website developer",devn:"Rana Al Harbi",devp:"Want a website of your own, or have feedback? Get in touch.",
+ call:"Call 0567153386",wa:"WhatsApp",foot:"THE WINTER DAY · INTERNATIONAL TECHNICAL COLLEGES",orgl:"Organizer login"},
+ar:{s1:"١ · الترحيب",s2:"٢ · الورش",s3:"٣ · بطاقتك",hi:"أهلاً",so:"تسجيل الخروج",greet:"أهلاً بك! مرحباً في يوم الشتاء ❄",meet:"تشرفنا يا {n}! ⛄",back:"أهلاً بعودتك! سعيدون برؤيتك 💙",
+ org:"الكليات التقنية العالمية",sub:"إليفيت إيفنتس · يوم مفتوح بطابع شتوي",c1:"📅 ١٧ ديسمبر",c2:"🎓 أكثر من ١٣٠٠ طالبة",c3:"🛠 ٤ ورش",days:"يوم",hours:"ساعة",min:"دقيقة",today:"اليوم!",
+ tup:"تسجيل جديد",tin:"تسجيل الدخول",name:"الاسم الكامل",phn:"اكتبي اسمك الكامل",mob:"رقم الجوال",mail:"البريد الإلكتروني",create:"إنشاء حسابي",signin:"دخول",
+ bad:"تأكدي من الاسم والجوال (05XXXXXXXX) والبريد الإلكتروني.",badin:"اكتبي البريد والجوال المسجلين لدينا.",usein:" استخدمي تبويب تسجيل الدخول.",
+ st2:"الخطوة ٢ · جدولك",welcome:"أهلاً {n} ❄",lead2:"اختاري جلسات الورش. جلسة واحدة لكل وقت، و١٠ مقاعد لكل جلسة. تقدرين تتخطين الورش وتحضرين الفعالية فقط.",
+ load:"جاري تحميل الورش…",fail:"تعذر تحميل الورش.",left:"متبقي {n} مقاعد",full:"مكتملة",myday:"يومي",slot:"الفترة {n}",free:"فارغة · لا يوجد حجز",
+ cont:"المتابعة إلى بطاقتي",saving:"جاري الحفظ…",slow:"تأخر الخادم، حاولي مرة أخرى.",wrong:"حدث خطأ: ",
+ inn:"تم تسجيلك",pass:"بطاقة الدخول",qrerr:"تعذر رسم الباركود. اعرضي الرمز أدناه عند المدخل.",hint:"صوّري الشاشة واعرضي هذا الباركود عند المدخل.",
+ edit:"تعديل ورشي",nows:"لا توجد ورش محجوزة",cal:"إضافة إلى تقويمي",rate:"قيّمي الموقع",how:"كيف كانت تجربتك؟",cmt:"تعليق (اختياري)",cmtph:"اكتبي رأيك",
+ send:"إرسال التقييم",pick:"اختاري من ١ إلى ٥ نجوم.",thanks:"شكراً لملاحظاتك! 💙",dev:"مطورة الموقع",devn:"رنا الحربي",devp:"تبين موقع خاص فيك أو عندك ملاحظات؟ تواصلي معي.",
+ call:"اتصال 0567153386",wa:"واتساب",foot:"يوم الشتاء · الكليات التقنية العالمية",orgl:"دخول المنظمات"}};
+const E={"This email is already registered.":"هذا البريد مسجّل مسبقاً.","No account found. Check your email and mobile, or sign up.":"لا يوجد حساب بهذه البيانات. تأكدي من البريد والجوال أو سجّلي حساباً جديداً.",
+ "You cannot book two workshops in the same time slot.":"لا يمكن حجز ورشتين في نفس الوقت.","One of the selected sessions is now full.":"إحدى الجلسات المختارة اكتملت.","Invalid details. Please check your name, mobile and email.":"بيانات غير صحيحة، تأكدي من الاسم والجوال والبريد."};
+let lang="en";try{const sv=localStorage.getItem("wdLang");lang=sv||((navigator.language||"").slice(0,2)==="ar"?"ar":"en")}catch(e){}
+const t=k=>T[lang][k]??T.en[k]??k;
+const err=m=>lang==="ar"?(E[m]||m):m;
+
+let me=null, picked={}, byId={}, stars=0, guests=[], cur=1, wsData=null, mineSet=new Set(), tlIds=[], bub=["greet",""];
 try{me=JSON.parse(sessionStorage.getItem("wd"))}catch(e){}
 const store=()=>{try{me?sessionStorage.setItem("wd",JSON.stringify(me)):sessionStorage.removeItem("wd")}catch(e){}};
 cur=me?2:1;
+const setBubble=(k,n)=>{bub=[k,n||""];$("#bubble").textContent=t(k).replace("{n}",n||"")};
+
+function applyLang(){
+  const admin=location.hash==="#admin";
+  document.documentElement.lang=admin?"en":lang;document.documentElement.dir=(admin||lang==="en")?"ltr":"rtl";
+  document.querySelectorAll("[data-i]").forEach(e=>e.textContent=t(e.dataset.i));
+  document.querySelectorAll("[data-ph]").forEach(e=>e.placeholder=t(e.dataset.ph));
+  $("#lang").textContent=lang==="ar"?"EN":"العربية";$("#lang").hidden=admin;
+  $("#bubble").textContent=t(bub[0]).replace("{n}",bub[1]);tick();
+  if(me)$("#whoName").textContent=me.name.split(" ")[0];
+  if(cur===2&&me){setHi();if(wsData)renderWs();else $("#ws").innerHTML=`<div class="card">${t("load")}</div>`;paint()}
+  if(cur===3)renderTl();
+}
+$("#lang").onclick=()=>{lang=lang==="ar"?"en":"ar";try{localStorage.setItem("wdLang",lang)}catch(e){}applyLang()};
 
 /* ---------- Snowfall ---------- */
 (()=>{const c=$("#snow"),x=c.getContext("2d");let W,H,f=[];
@@ -247,12 +320,21 @@ cur=me?2:1;
 
 /* ---------- Countdown ---------- */
 function tick(){const d=new Date("2026-12-17T10:00:00")-new Date(),el=$("#cd");
- if(d<=0){el.innerHTML='<div class="cdb"><b>Today!</b><small>The Winter Day</small></div>';return}
+ if(d<=0){el.innerHTML=`<div class="cdb"><b>${t("today")}</b><small>The Winter Day</small></div>`;return}
  const D=Math.floor(d/864e5),H=Math.floor(d%864e5/36e5),M=Math.floor(d%36e5/6e4);
- el.innerHTML=[[D,"days"],[H,"hours"],[M,"min"]].map(([v,k])=>`<div class="cdb"><b>${v}</b><small>${k}</small></div>`).join("")}
-tick();setInterval(tick,30000);
+ el.innerHTML=[[D,"days"],[H,"hours"],[M,"min"]].map(([v,k])=>`<div class="cdb"><b>${v}</b><small>${t(k)}</small></div>`).join("")}
+setInterval(tick,30000);
+
+/* ---------- Announcements ---------- */
+async function loadAnn(){
+  const {data}=await db.from("announcements").select("message").eq("active",true).order("created_at",{ascending:false}).limit(3);
+  const el=$("#ann");if(!data||!data.length){el.hidden=true;return}
+  el.innerHTML=data.map(a=>`<div>📢 ${esc(a.message)}</div>`).join("");el.hidden=false;
+}
+setInterval(()=>{if(location.hash!=="#admin")loadAnn()},60000);
 
 /* ---------- Navigation ---------- */
+function setHi(){$("#hi").textContent=t("welcome").replace("{n}",me.name.split(" ")[0])}
 function go(n){
   if(n>1&&!me)n=1;cur=n;
   document.querySelectorAll(".page").forEach(p=>p.hidden=p.id!=="p"+n);
@@ -260,33 +342,32 @@ function go(n){
   $("#who").hidden=!me;if(me){$("#whoName").textContent=me.name.split(" ")[0];$("#av").textContent=me.name.trim()[0]?.toUpperCase()||"?"}
   scrollTo(0,0);if(n===2)initP2();if(n===3)initP3();
 }
-$("#so").onclick=e=>{e.preventDefault();me=null;picked={};stars=0;store();go(1)};
+$("#so").onclick=e=>{e.preventDefault();me=null;picked={};stars=0;wsData=null;store();go(1)};
 
 /* ---------- Page 1 ---------- */
-$("#n").addEventListener("input",e=>{const f=e.target.value.trim().split(" ")[0];
-  $("#bubble").textContent=f?`Nice to meet you, ${f}! ⛄`:"Hi there! Welcome to The Winter Day ❄"});
-$("#tUp").onclick=()=>{$("#fUp").hidden=false;$("#fIn").hidden=true;$("#tUp").classList.add("on");$("#tIn").classList.remove("on");say($("#msg1"),"")};
-$("#tIn").onclick=()=>{$("#fUp").hidden=true;$("#fIn").hidden=false;$("#tIn").classList.add("on");$("#tUp").classList.remove("on");say($("#msg1"),"");$("#bubble").textContent="Welcome back! Good to see you again 💙"};
+$("#n").addEventListener("input",e=>{const f=e.target.value.trim().split(" ")[0];f?setBubble("meet",f):setBubble("greet")});
+$("#tUp").onclick=()=>{$("#fUp").hidden=false;$("#fIn").hidden=true;$("#tUp").classList.add("on");$("#tIn").classList.remove("on");say($("#msg1"),"");setBubble("greet")};
+$("#tIn").onclick=()=>{$("#fUp").hidden=true;$("#fIn").hidden=false;$("#tIn").classList.add("on");$("#tUp").classList.remove("on");say($("#msg1"),"");setBubble("back")};
 const okMobile=v=>/^05\d{8}$/.test(v), okMail=v=>/^\S+@\S+\.\S+$/.test(v);
 $("#fUp").addEventListener("submit",async e=>{
   e.preventDefault();const m=$("#msg1");
   const name=$("#n").value.trim(),mobile=$("#m").value.trim(),email=$("#e").value.trim();
-  if(name.length<2||!okMobile(mobile)||!okMail(email))return say(m,"Please check your name, mobile (05XXXXXXXX) and email.","e");
+  if(name.length<2||!okMobile(mobile)||!okMail(email))return say(m,t("bad"),"e");
   $("#bUp").disabled=true;
   const {data,error}=await db.rpc("register_guest",{p_name:name,p_mobile:mobile,p_email:email,p_sessions:[]});
   $("#bUp").disabled=false;
-  if(error)return say(m,error.message+(/already/.test(error.message)?" Use the Sign in tab.":""),"e");
-  me={id:data,name};store();picked={};go(2);
+  if(error)return say(m,err(error.message)+(/already/.test(error.message)?t("usein"):""),"e");
+  me={id:data,name};store();picked={};wsData=null;go(2);
 });
 $("#fIn").addEventListener("submit",async e=>{
   e.preventDefault();const m=$("#msg1");
   const email=$("#se").value.trim(),mobile=$("#sm").value.trim();
-  if(!okMail(email)||!okMobile(mobile))return say(m,"Enter the email and mobile you registered with.","e");
+  if(!okMail(email)||!okMobile(mobile))return say(m,t("badin"),"e");
   $("#bIn").disabled=true;
   const {data,error}=await db.rpc("login_guest",{p_email:email,p_mobile:mobile});
   $("#bIn").disabled=false;
-  if(error)return say(m,error.message,"e");
-  me={id:data.id,name:data.name};store();picked={};go(2);
+  if(error)return say(m,err(error.message),"e");
+  me={id:data.id,name:data.name};store();picked={};wsData=null;go(2);
 });
 
 /* ---------- Page 2 ---------- */
@@ -295,60 +376,72 @@ async function fetchSessions(){
   if(error){console.error(error);return null}
   byId={};data.forEach(s=>byId[s.id]=s);return data;
 }
-async function initP2(){
-  const first=me.name.split(" ")[0];
-  $("#hi").textContent=`Welcome, ${first} ❄`;$("#sn").textContent=me.name;say($("#msg2"),"");
-  const [data,mine]=await Promise.all([fetchSessions(),db.rpc("my_bookings",{p_guest:me.id})]);
-  if(!data){$("#ws").innerHTML='<div class="card">Could not load workshops.</div>';return}
-  const mineSet=new Set(mine.data||[]);
-  if(!Object.keys(picked).length)mineSet.forEach(id=>{if(byId[id])picked[byId[id].slot_no]=id});
-  const by={};data.forEach(s=>(by[s.workshop_title]??=[]).push(s));
-  $("#ws").innerHTML=Object.entries(by).map(([t,ss])=>`<div class="card ws"><h3>${esc(t)}</h3><small>${esc(ss[0].location||"")}</small>
+function renderWs(){
+  const by={};wsData.forEach(s=>(by[s.workshop_title]??=[]).push(s));
+  $("#ws").innerHTML=Object.entries(by).map(([ti,ss])=>`<div class="card ws"><h3>${esc(ti)}</h3><small>${esc(ss[0].location||"")}</small>
    <div class="slots">${ss.map(s=>{const full=s.seats_left<=0&&!mineSet.has(s.id);
-   return `<button type="button" class="slot" data-id="${s.id}" data-slot="${s.slot_no}" ${full?"disabled":""}>${esc(s.time_label)}<span>${full?"Fully booked":s.seats_left+" seats left"}</span></button>`}).join("")}</div></div>`).join("");
+   return `<button type="button" class="slot" data-id="${s.id}" data-slot="${s.slot_no}" ${full?"disabled":""}>${esc(s.time_label)}<span>${full?t("full"):t("left").replace("{n}",s.seats_left)}</span></button>`}).join("")}</div></div>`).join("");
   paint();
+}
+async function initP2(){
+  setHi();$("#sn").textContent=me.name;say($("#msg2"),"");$("#ws").innerHTML=`<div class="card">${t("load")}</div>`;
+  const [data,mine]=await Promise.all([fetchSessions(),db.rpc("my_bookings",{p_guest:me.id})]);
+  if(!data){$("#ws").innerHTML=`<div class="card">${t("fail")}</div>`;return}
+  wsData=data;mineSet=new Set(mine.data||[]);
+  if(!Object.keys(picked).length)mineSet.forEach(id=>{if(byId[id])picked[byId[id].slot_no]=id});
+  renderWs();
 }
 function paint(){
   document.querySelectorAll(".slot").forEach(b=>b.classList.toggle("on",picked[b.dataset.slot]===b.dataset.id));
   const lab=n=>Object.values(byId).find(x=>x.slot_no===n)?.time_label||"";
   $("#sched").innerHTML=[1,2].map(n=>{const s=byId[picked[n]];
-    return `<div class="srow ${s?"on":""}"><b>Slot ${n}</b><span>${esc(lab(n))}<br>${s?esc(s.workshop_title):"Free · nothing booked"}</span></div>`}).join("");
+    return `<div class="srow ${s?"on":""}"><b>${t("slot").replace("{n}",n)}</b><span>${esc(lab(n))}<br>${s?esc(s.workshop_title):t("free")}</span></div>`}).join("");
 }
 $("#ws").addEventListener("click",e=>{
   const b=e.target.closest(".slot");if(!b||b.disabled)return;
   picked[b.dataset.slot]===b.dataset.id?delete picked[b.dataset.slot]:picked[b.dataset.slot]=b.dataset.id;paint();
 });
 $("#cont").onclick=async()=>{
-  const m=$("#msg2");$("#cont").disabled=true;say(m,"Saving…");
+  const m=$("#msg2");$("#cont").disabled=true;say(m,t("saving"));
   const wait=new Promise((_,rej)=>setTimeout(()=>rej(new Error("timeout")),15000));
   try{
     const {error}=await Promise.race([db.rpc("save_bookings",{p_guest:me.id,p_sessions:Object.values(picked)}),wait]);
-    if(error){console.error(error);say(m,error.message,"e");initP2();return}
+    if(error){console.error(error);say(m,err(error.message),"e");initP2();return}
     go(3);
-  }catch(err){console.error(err);say(m,err.message==="timeout"?"The server took too long. Please try again.":"Something went wrong: "+err.message,"e")}
+  }catch(ex){console.error(ex);say(m,ex.message==="timeout"?t("slow"):t("wrong")+ex.message,"e")}
   finally{$("#cont").disabled=false}
 };
 
 /* ---------- Page 3 ---------- */
+function renderTl(){
+  $("#tl").innerHTML=tlIds.length?tlIds.map(i=>`<div>${esc(byId[i].workshop_title)} · ${esc(byId[i].time_label)}</div>`).join(""):t("nows");
+}
 async function initP3(){
   $("#tn").textContent=me.name;$("#pid").textContent=me.id;
   try{
     const q=qrcode(0,"M");q.addData(me.id);q.make();
     $("#qr").innerHTML=q.createImgTag(8,0,"Your QR code");$("#qr").hidden=false;$("#qrErr").hidden=true;
-  }catch(err){console.error("QR error:",err);$("#qr").hidden=true;$("#qrErr").hidden=false}
+  }catch(ex){console.error("QR error:",ex);$("#qr").hidden=true;$("#qrErr").hidden=false}
   try{
     const [data,mine]=await Promise.all([fetchSessions(),db.rpc("my_bookings",{p_guest:me.id})]);
-    const ids=(mine.data||[]).filter(i=>byId[i]);
-    $("#tl").innerHTML=ids.length?ids.map(i=>`<div>${esc(byId[i].workshop_title)} · ${esc(byId[i].time_label)}</div>`).join(""):"No workshops booked";
-  }catch(err){console.error(err)}
+    tlIds=(mine.data||[]).filter(i=>byId[i]);renderTl();
+  }catch(ex){console.error(ex)}
 }
 $("#edit").onclick=()=>go(2);
+$("#calBtn").onclick=()=>{ // calendar file: all-day event + one event per booked session
+  const L=["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//Winter Day//EN",
+   "BEGIN:VEVENT","UID:wd-day-"+me.id+"@winterday","DTSTAMP:20261101T000000Z","DTSTART;VALUE=DATE:20261217","DTEND;VALUE=DATE:20261218","SUMMARY:The Winter Day - Elevate Events","END:VEVENT"];
+  tlIds.forEach((i,n)=>{const s=byId[i],p=s.time_label.split(/\s*[-–]\s*/),f=x=>"20261217T"+x.replace(":","")+"00";
+   L.push("BEGIN:VEVENT","UID:wd-"+n+"-"+me.id+"@winterday","DTSTAMP:20261101T000000Z","DTSTART:"+f(p[0]),"DTEND:"+f(p[1]),"SUMMARY:"+s.workshop_title+" - The Winter Day","END:VEVENT")});
+  L.push("END:VCALENDAR");
+  const a=document.createElement("a");a.href="data:text/calendar;charset=utf-8,"+encodeURIComponent(L.join("\r\n"));a.download="winter-day.ics";a.click();
+};
 const paintStars=()=>document.querySelectorAll("#stars button").forEach(b=>b.classList.toggle("on",+b.dataset.v<=stars));
 $("#stars").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;stars=+b.dataset.v;paintStars()});
 $("#rate").onclick=async()=>{
-  const m=$("#msg3");if(!stars)return say(m,"Please choose 1 to 5 stars.","e");
+  const m=$("#msg3");if(!stars)return say(m,t("pick"),"e");
   const {error}=await db.rpc("submit_rating",{p_guest:me.id,p_stars:stars,p_comment:$("#cm").value});
-  error?say(m,error.message,"e"):say(m,"Thank you for your feedback! 💙","g");
+  error?say(m,error.message,"e"):say(m,t("thanks"),"g");
 };
 
 /* ---------- Admin ---------- */
@@ -365,26 +458,46 @@ $("#lf").addEventListener("submit",async e=>{
   if(error)$("#lmsg").textContent="Incorrect email or password.";else initAdmin();
 });
 async function loadAdmin(){
-  const [g,s,r]=await Promise.all([
+  const [g,s,r,at,an]=await Promise.all([
     db.from("guests").select("id,name,mobile,email,checked_in,created_at,bookings(sessions(slot_no,time_label,workshops(title)))").order("created_at",{ascending:false}),
     db.from("session_availability").select("*").order("workshop_title").order("slot_no"),
-    db.from("ratings").select("stars,comment,created_at,guests(name)").order("created_at",{ascending:false})]);
-  if(g.error||s.error||r.error){$("#amsg").className="msg e";$("#amsg").textContent=(g.error||s.error||r.error).message;return}
+    db.from("ratings").select("stars,comment,created_at,guests(name)").order("created_at",{ascending:false}),
+    db.from("session_attendance").select("session_id"),
+    db.from("announcements").select("id,message,active").order("created_at",{ascending:false}).limit(8)]);
+  const bad=g.error||s.error||r.error||at.error||an.error;
+  if(bad){$("#amsg").className="msg e";$("#amsg").textContent=bad.message;return}
   guests=g.data;
   const avg=r.data.length?(r.data.reduce((a,x)=>a+x.stars,0)/r.data.length).toFixed(1):"–";
   $("#stats").innerHTML=[["Registered",guests.length],["Checked in",guests.filter(x=>x.checked_in).length],["Workshop bookings",guests.reduce((a,x)=>a+x.bookings.length,0)],["Avg. rating",avg+" ★"]]
     .map(([k,v])=>`<div class="card"><span class="stat">${v}</span><small>${k}</small></div>`).join("");
-  $("#sess").innerHTML="<tr><th>Workshop</th><th>Time</th><th>Booked</th><th>Left</th></tr>"+
-    s.data.map(x=>`<tr><td>${esc(x.workshop_title)}</td><td>${esc(x.time_label)}</td><td>${x.capacity-x.seats_left}/${x.capacity}</td><td>${x.seats_left}</td></tr>`).join("");
+  const att={};at.data.forEach(x=>att[x.session_id]=(att[x.session_id]||0)+1);
+  $("#sess").innerHTML="<tr><th>Workshop</th><th>Time</th><th>Booked</th><th>Fill</th><th>Left</th><th>Attended</th></tr>"+
+    s.data.map(x=>{const b=x.capacity-x.seats_left;return `<tr><td>${esc(x.workshop_title)}</td><td>${esc(x.time_label)}</td><td>${b}/${x.capacity}</td><td><div class="pb"><i style="width:${Math.round(b/x.capacity*100)}%"></i></div></td><td>${x.seats_left}</td><td>${att[x.id]||0}</td></tr>`}).join("");
+  const keep=$("#mode").value;
+  $("#mode").innerHTML='<option value="">Event entrance (check-in)</option>'+s.data.map(x=>`<option value="${x.id}">${esc(x.workshop_title)} · ${esc(x.time_label)}</option>`).join("");
+  $("#mode").value=keep;
   $("#rt").innerHTML="<tr><th>Guest</th><th>Stars</th><th>Comment</th></tr>"+
     (r.data.map(x=>`<tr><td>${esc(x.guests?.name)}</td><td>${"★".repeat(x.stars)}</td><td>${esc(x.comment)||"—"}</td></tr>`).join("")||'<tr><td colspan="3">No ratings yet</td></tr>');
+  $("#annList").innerHTML=an.data.map(a=>`<div style="display:flex;gap:10px;align-items:center;margin:8px 0;${a.active?"":"opacity:.45"}"><span style="flex:1">${esc(a.message)}</span>
+   <button class="btn alt" data-a="${a.id}" data-on="${a.active?1:0}">${a.active?"Hide":"Show"}</button><button class="btn alt" data-ad="${a.id}">Delete</button></div>`).join("");
   renderGuests();
 }
+$("#annGo").onclick=async()=>{
+  const v=$("#annTxt").value.trim(),m=$("#annMsg");if(!v)return say(m,"Write a message first.","e");
+  const {error}=await db.from("announcements").insert({message:v});
+  if(error)return say(m,error.message,"e");$("#annTxt").value="";say(m,"Published ✓","g");loadAdmin();
+};
+$("#annList").addEventListener("click",async e=>{
+  const a=e.target.dataset.a,d=e.target.dataset.ad;
+  if(a)await db.from("announcements").update({active:e.target.dataset.on!=="1"}).eq("id",a);
+  if(d)await db.from("announcements").delete().eq("id",d);
+  if(a||d)loadAdmin();
+});
 const wsText=x=>x.bookings.map(b=>`${b.sessions.workshops.title} (${b.sessions.time_label})`).join(", ");
 function renderGuests(){
   const q=$("#q").value.trim().toLowerCase();
   const rows=guests.filter(x=>!q||[x.name,x.mobile,x.email].some(v=>v.toLowerCase().includes(q)));
-  $("#gt").innerHTML="<tr><th>Name</th><th>Mobile</th><th>Email</th><th>Workshops</th><th>Status</th><th></th></tr>"+
+  $("#gt").innerHTML="<tr><th>Name</th><th>Mobile</th><th>Email</th><th>Workshops</th><th>Status</th><th class=\"noprint\"></th></tr>"+
    rows.map(x=>`<tr><td>${esc(x.name)}</td><td>${esc(x.mobile)}</td><td>${esc(x.email)}</td><td>${esc(wsText(x))||"—"}</td>
    <td>${x.checked_in?'<span class="ok">Checked in</span>':"—"}</td>
    <td style="white-space:nowrap"><button class="btn alt" data-t="${x.id}">${x.checked_in?"Undo":"Check in"}</button>
@@ -392,15 +505,15 @@ function renderGuests(){
 }
 $("#q").oninput=renderGuests;
 $("#gt").addEventListener("click",async e=>{
-  const t=e.target.dataset.t,d=e.target.dataset.d;
-  if(t){const g=guests.find(x=>x.id===t);await db.from("guests").update({checked_in:!g.checked_in}).eq("id",t);loadAdmin()}
+  const t2=e.target.dataset.t,d=e.target.dataset.d;
+  if(t2){const g=guests.find(x=>x.id===t2);await db.from("guests").update({checked_in:!g.checked_in}).eq("id",t2);loadAdmin()}
   if(d&&confirm("Permanently delete this guest and their bookings?")){await db.from("guests").delete().eq("id",d);loadAdmin()}
 });
 $("#ci").onclick=async()=>{
   const id=$("#code").value.trim(),m=$("#amsg");
   const {data,error}=await db.from("guests").update({checked_in:true}).eq("id",id).select("name");
-  const bad=error||!data?.length;m.className="msg "+(bad?"e":"g");
-  m.textContent=bad?"Invalid code":`Checked in: ${data[0].name}`;$("#code").value="";loadAdmin();
+  const bd=error||!data?.length;m.className="msg "+(bd?"e":"g");
+  m.textContent=bd?"Invalid code":`Checked in: ${data[0].name}`;$("#code").value="";loadAdmin();
 };
 $("#code").addEventListener("keydown",e=>{if(e.key==="Enter")$("#ci").click()});
 $("#csv").onclick=()=>{
@@ -410,6 +523,7 @@ $("#csv").onclick=()=>{
   a.href=URL.createObjectURL(new Blob(["\ufeff"+rows.map(r=>r.map(c).join(",")).join("\n")],{type:"text/csv"}));
   a.download="winter-day-guests.csv";a.click();
 };
+$("#prt").onclick=()=>window.print();
 
 /* ---------- QR scanner (organizers) ---------- */
 let scanner=null,busy=false;
@@ -423,27 +537,39 @@ $("#scanBtn").onclick=async()=>{
   try{
     await scanner.start({facingMode:"environment"},{fps:10,qrbox:240},onScan,()=>{});
     $("#scanBtn").textContent="Stop scanning";
-  }catch(err){
-    console.error(err);scanner=null;
+  }catch(ex){
+    console.error(ex);scanner=null;
     say($("#scanMsg"),"Could not open the camera. Allow camera access and use the https link.","e");
   }
 };
 async function onScan(text){
   if(busy)return;busy=true;
-  const m=$("#scanMsg"),id=text.trim();
-  if(!/^[0-9a-f-]{36}$/i.test(id)){say(m,"This is not a Winter Day pass.","e");setTimeout(()=>busy=false,1500);return}
-  const {data:g}=await db.from("guests").select("name,checked_in").eq("id",id).maybeSingle();
-  if(!g)say(m,"Invalid pass.","e");
-  else if(g.checked_in)say(m,"Already checked in: "+g.name,"e");
-  else{
-    const {error}=await db.from("guests").update({checked_in:true}).eq("id",id);
-    error?say(m,error.message,"e"):(say(m,"✓ Checked in: "+g.name,"g"),loadAdmin());
-  }
-  setTimeout(()=>busy=false,2000);
+  const m=$("#scanMsg"),id=text.trim(),mode=$("#mode").value;
+  try{
+    if(!/^[0-9a-f-]{36}$/i.test(id)){say(m,"This is not a Winter Day pass.","e");return}
+    const {data:g}=await db.from("guests").select("name,checked_in").eq("id",id).maybeSingle();
+    if(!g){say(m,"Invalid pass.","e");return}
+    if(!mode){ // event entrance
+      if(g.checked_in){say(m,"Already checked in: "+g.name,"e");return}
+      const {error}=await db.from("guests").update({checked_in:true}).eq("id",id);
+      error?say(m,error.message,"e"):(say(m,"✓ Checked in: "+g.name,"g"),loadAdmin());
+    }else{ // workshop session
+      const {data:b}=await db.from("bookings").select("id").eq("guest_id",id).eq("session_id",mode).maybeSingle();
+      if(!b){say(m,g.name+" is not booked in this session.","e");return}
+      const {error}=await db.from("session_attendance").insert({guest_id:id,session_id:mode});
+      if(error){say(m,error.code==="23505"?"Already marked: "+g.name:error.message,"e");return}
+      await db.from("guests").update({checked_in:true}).eq("id",id);
+      say(m,"✓ Attended: "+g.name,"g");loadAdmin();
+    }
+  }finally{setTimeout(()=>busy=false,2000)}
 }
 $("#out").onclick=async()=>{if(scanner)await stopScan();await db.auth.signOut();initAdmin()};
 
 /* ---------- Routing ---------- */
-function route(){const a=location.hash==="#admin";$("#pub").hidden=a;$("#adm").hidden=!a;a?initAdmin():go(cur)}
+function route(){
+  const a=location.hash==="#admin";$("#pub").hidden=a;$("#adm").hidden=!a;$("#ann").hidden=true;
+  applyLang();
+  if(a)initAdmin();else{go(cur);loadAnn()}
+}
 addEventListener("hashchange",route);route();
 </script></body></html>
